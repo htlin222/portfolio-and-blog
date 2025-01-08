@@ -1,0 +1,34 @@
+.toc-link {
+  display: block;
+  padding: 6px 0;
+  font-size: 15px;
+  color: #4b5563;
+  text-decoration: none;
+  transition: all 0.2s ease;
+  line-height: 1.4;
+  min-width: 280px;
+}
+
+.toc-link:hover {
+  color: #000;
+  transform: translateX(2px);
+}
+
+.toc-link.active {
+  color: #2563eb;
+  font-weight: 500;
+}
+
+@media (prefers-color-scheme: dark) {
+  .toc-link {
+    color: #9ca3af;
+  }
+  
+  .toc-link:hover {
+    color: #fff;
+  }
+  
+  .toc-link.active {
+    color: #60a5fa;
+  }
+}

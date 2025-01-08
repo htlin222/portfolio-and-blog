@@ -7,9 +7,11 @@ export const metadata = {
 
 export default function Page() {
   return (
-    <section>
-      <h1 className="font-semibold text-2xl mb-8 tracking-tighter">林協霆的文章</h1>
-      <BlogPosts />
-    </section>
+    <div className="max-w-xl lg:max-w-7xl mx-auto">
+      <section>
+        <h1 className="font-semibold text-2xl mb-8 tracking-tighter">林協霆的文章</h1>
+        <BlogPosts />
+      </section>
+    </div>
   )
 }

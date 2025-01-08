@@ -1,5 +1,6 @@
 import { notFound } from 'next/navigation'
 import { CustomMDX } from 'app/components/mdx'
+import { TableOfContents } from 'app/components/toc'
 import { formatDate, getBlogPosts } from 'app/blog/utils'
 import { baseUrl } from 'app/sitemap'
 
@@ -59,40 +60,45 @@ export default function Blog({ params }) {
   }
 
   return (
-    <section>
-      <script
-        type="application/ld+json"
-        suppressHydrationWarning
-        dangerouslySetInnerHTML={{
-          __html: JSON.stringify({
-            '@context': 'https://schema.org',
-            '@type': 'BlogPosting',
-            headline: post.metadata.title,
-            datePublished: post.metadata.publishedAt,
-            dateModified: post.metadata.publishedAt,
-            description: post.metadata.summary,
-            image: post.metadata.image
-              ? `${baseUrl}${post.metadata.image}`
-              : `/og?title=${encodeURIComponent(post.metadata.title)}`,
-            url: `${baseUrl}/blog/${post.slug}`,
-            author: {
-              '@type': 'Person',
-              name: 'My Portfolio',
-            },
-          }),
-        }}
-      />
-      <h1 className="title font-semibold text-2xl tracking-tighter">
-        {post.metadata.title}
-      </h1>
-      <div className="flex justify-between items-center mt-2 mb-8 text-sm">
-        <p className="text-sm text-neutral-600 dark:text-neutral-400">
-          {formatDate(post.metadata.publishedAt)}
-        </p>
+    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div className="flex justify-between gap-8 py-8">
+        <section className="flex-grow min-w-0 max-w-4xl">
+          <script
+            type="application/ld+json"
+            suppressHydrationWarning
+            dangerouslySetInnerHTML={{
+              __html: JSON.stringify({
+                '@context': 'https://schema.org',
+                '@type': 'BlogPosting',
+                headline: post.metadata.title,
+                datePublished: post.metadata.publishedAt,
+                dateModified: post.metadata.publishedAt,
+                description: post.metadata.summary,
+                image: post.metadata.image
+                  ? `${baseUrl}${post.metadata.image}`
+                  : `/og?title=${encodeURIComponent(post.metadata.title)}`,
+                url: `${baseUrl}/blog/${post.slug}`,
+                author: {
+                  '@type': 'Person',
+                  name: 'My Portfolio',
+                },
+              }),
+            }}
+          />
+          <h1 className="title font-semibold text-2xl tracking-tighter">
+            {post.metadata.title}
+          </h1>
+          <div className="flex justify-between items-center mt-2 mb-8 text-sm">
+            <p className="text-sm text-neutral-600 dark:text-neutral-400">
+              {formatDate(post.metadata.publishedAt)}
+            </p>
+          </div>
+          <article className="prose dark:prose-invert max-w-none prose-pre:overflow-x-auto">
+            <CustomMDX source={post.content} />
+          </article>
+        </section>
+        <TableOfContents className="flex-shrink-0" />
       </div>
-      <article className="prose">
-        <CustomMDX source={post.content} />
-      </article>
-    </section>
+    </div>
   )
 }
